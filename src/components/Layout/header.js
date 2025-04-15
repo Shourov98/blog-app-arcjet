@@ -9,7 +9,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel,
 import { logoutUserAction } from "@/actions/logout";
 
 
-export default function Header({ user }) {
+export default function Header() {
 
   const router = useRouter();
 
