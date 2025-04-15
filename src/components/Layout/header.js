@@ -1,16 +1,26 @@
 "use client";
 
-import { Edit, LogOut, Search, Wallet } from "lucide-react";
+import { Edit, LogOut, Search } from "lucide-react";
 import { Input } from "../ui/input";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { logoutUserAction } from "@/actions/logout";
 
 
 export default function Header({ user }) {
 
   const router = useRouter();
+
+  async function handleLogout() {
+    const result = await logoutUserAction();
+    if (result.success) {
+      router.push("/login");
+    } else {
+      console.error(result.error);
+    }
+  }
 
 
   return (
@@ -59,7 +69,7 @@ export default function Header({ user }) {
                 <DropdownMenuContent align="end">
                   <DropdownMenuLabel>My Account</DropdownMenuLabel>
                   <DropdownMenuSeparator />
-                  <DropdownMenuItem >
+                  <DropdownMenuItem onClick={handleLogout}>
                     <LogOut className="h-4 w-4" />
                     <span>Log Out</span>
                   </DropdownMenuItem>
